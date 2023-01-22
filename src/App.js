@@ -7,6 +7,9 @@ function App() {
     <>
       <Banner />
       <Skills />
+      <marquee>
+        <h4 className='text-center text-info'>* Blog not yet fully completed get back soon quickly * </h4>
+      </marquee>
     </>
   );
 }
