@@ -1,0 +1,14 @@
+{
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "setupFilesAfterEnv": [
+    "@testing-library/jest-dom/extend-expect"
+  ],
+  "collectCoverage": true,
+  "moduleNameMapper": {
+    "\\.(css|scss)$": "identity-obj-proxy",
+    "^.+\\.(svg|png)$": "jest-svg-transformer"
+  }
+}

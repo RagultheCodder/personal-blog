@@ -1,0 +1,10 @@
+.search-wrapper {
+  width: 300px;
+  height: 30px;
+  input {
+    font-size: 12px;
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+}

@@ -1,0 +1,130 @@
+@mixin tableData() {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  vertical-align: middle;
+}
+@mixin tablePara() {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@mixin customTableHead() {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@mixin tableHead() {
+  color: $table-font-color;
+  .sort-icon {
+    width: 16px;
+  }
+}
+
+@mixin tableCustomBtn() {
+  padding: 2px 6px;
+  border-radius: 15px;
+}
+
+.table-wrapper {
+  .active-student {
+    .table-header {
+      background-color: $table-active-student;
+    }
+    .table-responsive {
+      .table {
+        thead {
+          th {
+            background-color: $table-active-student-head;
+            border-top: 0.5px solid $table-active-student-border;
+            border-bottom: 0.5px solid $table-active-student-border;
+            @include tableHead();
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              @include tableData();
+              color: $table-font-color;
+
+              p {
+                @include tablePara();
+              }
+
+              u {
+                color: $student-pagination-active;
+              }
+
+              .custom-button-wrapper {
+                @include tableCustomBtn();
+                border: 0.5px solid $student-pagination-active;
+                background: $pure-white;
+
+                p {
+                  font-size: 10px;
+                  color: $student-pagination-active;
+                }
+              }
+            }
+          }
+        }
+        .custom-table-head {
+          @include customTableHead();
+        }
+      }
+    }
+  }
+
+  .discharge-student {
+    .table-header {
+      background-color: $table-discharge-student;
+    }
+    .table-responsive {
+      .table {
+        thead {
+          th {
+            background-color: $table-discharge-student-head;
+            border-top: 0.5px solid $table-discharge-student-border;
+            border-bottom: 0.5px solid $table-discharge-student-border;
+            @include tableHead();
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              @include tableData();
+              color: $table-font-color;
+
+              p {
+                @include tablePara();
+              }
+
+              u {
+                color: $student-discharge-pagination-active;
+              }
+
+              .custom-button-wrapper {
+                @include tableCustomBtn();
+                border: 0.5px solid $student-discharge-pagination-active;
+                background: $pure-white;
+
+                p {
+                  font-size: 10px;
+                  color: $student-discharge-pagination-active;
+                }
+              }
+            }
+          }
+        }
+        .custom-table-head {
+          @include customTableHead();
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+.pagination-wrapper {
+  ul {
+    display: table;
+    width: 300px;
+    background-color: $stepper-track;
+    border-radius: 25px;
+    margin: 0 auto;
+    padding-left: 0;
+    li {
+      display: table-cell;
+      list-style: none;
+      padding: 10px 3px;
+      text-align: center;
+      width: 50px;
+
+      a {
+        display: block;
+      }
+    }
+
+    li.selected {
+      a {
+        border-radius: 15px;
+        padding: 2px 4px;
+        color: $pure-white;
+        text-align: center;
+
+        &:hover {
+          color: $pure-white;
+        }
+      }
+    }
+
+    li.previous,
+    li.next {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.active-student .pagination-wrapper li.selected {
+  a {
+    background-color: $student-pagination-active;
+  }
+}
+
+.discharge-student .pagination-wrapper li.selected {
+  a {
+    background-color: $primary-color;
+  }
+}
+
+.active-student .pagination-wrapper li svg path {
+  stroke: $secondary-color;
+}
+
+.discharge-student .pagination-wrapper li svg path {
+  stroke: $primary-color;
+}
+
+.pagination-wrapper li.previous.disabled svg path,
+li.next.disabled svg path {
+  stroke: $pagination-disable;
+}

@@ -1,0 +1,167 @@
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, white, 50%)
+) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(51, 51, 153, 0.82) 0%,
+      rgba(0, 102, 204, 0.82) 100%
+    );
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+.patient-care-wrapper {
+  height: calc(100vh - 70px);
+
+  .stepper {
+    .stepper-item {
+      gap: 1rem;
+      padding-bottom: 38px;
+
+      &:before {
+        content: '';
+        position: relative;
+        z-index: 1;
+        flex: 0 0 var(--circle-size);
+        height: var(--circle-size);
+        border-radius: 50%;
+        background-color: lightgray;
+      }
+
+      &:not(:last-child) {
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 4px;
+          bottom: -4px;
+          z-index: -1;
+          transform: translateX(calc(var(--circle-size) / 2));
+          width: 1px;
+          background-color: lightgrey;
+        }
+      }
+    }
+
+    .stepper-item.active.stepper-header {
+      &:before {
+        content: '\2713';
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        flex: 0 0 var(--circle-size);
+        height: var(--circle-size);
+        border-radius: 50%;
+        background-color: $primary-color;
+        border: 5px solid #adadf1;
+      }
+    }
+
+    .stepper-item.active {
+      &:before {
+        content: '\2713';
+        color: white;
+        font-size: 12px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        flex: 0 0 var(--circle-size);
+        height: var(--circle-size);
+        border-radius: 50%;
+        background-color: $primary-color;
+        border: 1.5px solid #adadf1;
+      }
+
+      &:not(:last-child) {
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 4px;
+          bottom: -4px;
+          z-index: -1;
+          transform: translateX(calc(var(--circle-size) / 2));
+          transition-timing-function: ease-in;
+          transition: 1.5s;
+          width: 1px;
+          background-color: $primary-color;
+        }
+      }
+    }
+
+    .stepper-item.stepper-header {
+      .stepper-title {
+        color: $primary-color;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    .stepper-item.stepper-child {
+      .stepper-title {
+        color: #363636;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+
+  .left-boder {
+    border-left: 1px solid $border-color-opacity;
+  }
+
+  .patient-care-header {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    z-index: 1;
+
+    .breadcrumb-item{
+      font-size: 12px;
+    }
+  }
+
+  .patient-care-content {
+    @include scrollbars(0.3em, slategray);
+    overflow-y: auto;
+    max-height: calc(70vh - 75px);
+    padding: 10px;
+  }
+
+  .patient-care-footer{
+    .top-border{
+      border-top: 1px solid $border-color-opacity;
+    }
+  }
+}
