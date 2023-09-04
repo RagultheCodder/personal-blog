@@ -7,7 +7,12 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     // using svg as ReactComponent
-    "types": ["vite-plugin-svgr/client"],
+    "types": [
+      "vite-plugin-svgr/client",
+      "jest",
+      "node",
+      "@testing-library/jest-dom"
+    ],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

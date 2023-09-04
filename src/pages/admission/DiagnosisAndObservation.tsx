@@ -1,5 +1,5 @@
-import PatientDiagnosis from '../../components/PatientDiagnosis';
-import PatientObservation from '../../components/PatientObservation';
+import PatientDiagnosis from '../../components/admission/PatientDiagnosis';
+import PatientObservation from '../../components/admission/PatientObservation';
 
 const DiagnosisAndObservation = () => {
   return (

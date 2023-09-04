@@ -38,23 +38,23 @@
   }
 }
 
-.active-student .pagination-wrapper li.selected {
+.active-patients .pagination-wrapper li.selected {
   a {
     background-color: $student-pagination-active;
   }
 }
 
-.discharge-student .pagination-wrapper li.selected {
+.discharge-patients .pagination-wrapper li.selected {
   a {
     background-color: $primary-color;
   }
 }
 
-.active-student .pagination-wrapper li svg path {
+.active-patients .pagination-wrapper li svg path {
   stroke: $secondary-color;
 }
 
-.discharge-student .pagination-wrapper li svg path {
+.discharge-patients .pagination-wrapper li svg path {
   stroke: $primary-color;
 }
 

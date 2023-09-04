@@ -1,53 +1,43 @@
-import React from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import FieldSet from '../../components/common/FieldSet';
 import FormInput from '../../components/common/FormInput';
 import TextArea from '../../components/common/TextArea';
 import '../../scss/formInput.scss';
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 import '../../scss/customRows.scss';
+import { PatientContext } from '../../context/PatientContext';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/material.css';
+import { martialStatus, yesOrNo } from '../../config/constant';
+import countryData from 'country-locale-map';
+import ISO6391 from 'iso-639-1';
+import { SelectInter } from '../../interface/patientCareDetails.interface';
 
 const Demographics = () => {
-  const [data, setData] = React.useState({
-    contactNumber: '',
-    emergencyContact: '',
-    status: { value: '0', label: 'select' },
-    country: { value: '0', label: 'select' },
-    religion: '',
-    maritalStatus: { value: '0', label: 'select' },
-    language: { value: '0', label: 'select' },
-    interpreter: { value: '0', label: 'select' },
-    socialHistory: '',
-    familyHistory: '',
-  });
+  const [countryList, setCountryList] = useState<SelectInter[]>([]);
+  const [languageList, setLanguageList] = useState<SelectInter[]>([]);
 
-  const options = [
-    { value: '1', label: 'test1' },
-    { value: '2', label: 'test2' },
-    { value: '3', label: 'test3' },
-  ];
+  const loadCountryAndLanguage = useCallback(() => {
+    setCountryList(
+      countryData.getAllCountries().map((x) => ({
+        label: x.name + ' ' + x.emoji,
+        value: x.alpha2,
+      })),
+    );
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
+    setLanguageList(
+      ISO6391.getAllNames().map((y: string) => ({
+        value: ISO6391.getCode(y),
+        label: y + ' - ' + ISO6391.getCode(y).toUpperCase(),
+      })),
+    );
+  }, []);
 
-  const handleSelect = (
-    options: SingleValue<{ value: string; label: string }>,
-    name: string,
-  ) => {
-    if (!options) {
-      return;
-    }
-    const { label, value } = options;
-    setData({
-      ...data,
-      [name]: { label, value },
-    });
-  };
+  useEffect(() => {
+    loadCountryAndLanguage();
+  }, [loadCountryAndLanguage]);
+
+  const patientContext = useContext(PatientContext);
 
   return (
     <div>
@@ -55,39 +45,61 @@ const Demographics = () => {
         <div>
           <div className="row">
             <div className="col position-relative">
-              <FormInput
-                type="number"
-                value={data.contactNumber ?? ''}
-                name="contactNumber"
-                onChange={(e) => handleChange(e)}
-                className={`input-style ${
-                  data.contactNumber && 'input-style-valid'
-                }`}
-                label="Contact Number "
-                noLabel={false}
-                id="contactNumber"
-              />
+              <div className="custom-phone-input">
+                <PhoneInput
+                  country={'au'}
+                  value={patientContext.patientDemographics.contactNumber ?? ''}
+                  onChange={(phone) =>
+                    patientContext.handlePhoneNumber(
+                      'patientDemographics',
+                      'contactNumber',
+                      phone,
+                    )
+                  }
+                  specialLabel="Contact Number"
+                />
+              </div>
+              {patientContext.validator.current.message(
+                'contactNumber',
+                patientContext.patientDemographics.contactNumber,
+                'required',
+              )}
             </div>
 
             <div className="col position-relative">
-              <FormInput
-                type="number"
-                value={data.emergencyContact ?? ''}
-                name="emergencyContact"
-                onChange={(e) => handleChange(e)}
-                className={`input-style ${
-                  data.emergencyContact && 'input-style-valid'
-                }`}
-                label="Emergency Contact Number "
-                noLabel={false}
-                id="emergencyContact"
-              />
+              <div className="custom-phone-input">
+                <PhoneInput
+                  country={'au'}
+                  value={
+                    patientContext.patientDemographics.emergencyContact ?? ''
+                  }
+                  onChange={(phone) =>
+                    patientContext.handlePhoneNumber(
+                      'patientDemographics',
+                      'emergencyContact',
+                      phone,
+                    )
+                  }
+                  specialLabel="Emergency Contact Number"
+                />
+              </div>
+              {patientContext.validator.current.message(
+                'emergencyContact',
+                patientContext.patientDemographics.emergencyContact,
+                'required',
+              )}
             </div>
             <div className="col position-relative">
               <Select
-                value={data.status}
-                onChange={(e) => handleSelect(e, 'status')}
-                options={options}
+                value={patientContext.patientDemographics.status}
+                onChange={(e) =>
+                  patientContext.handleDropDown(
+                    'patientDemographics',
+                    'status',
+                    e,
+                  )
+                }
+                options={yesOrNo}
                 className={'gender'}
                 name="status"
                 id="status"
@@ -100,14 +112,25 @@ const Demographics = () => {
                   </div>
                 </label>
               </>
+              {patientContext.validator.current.message(
+                'status',
+                patientContext.patientDemographics.status.value,
+                'required',
+              )}
             </div>
           </div>
           <div className="row custom-top-margin">
             <div className="col position-relative">
               <Select
-                value={data.country}
-                onChange={(e) => handleSelect(e, 'country')}
-                options={options}
+                value={patientContext.patientDemographics.country}
+                onChange={(e) =>
+                  patientContext.handleDropDown(
+                    'patientDemographics',
+                    'country',
+                    e,
+                  )
+                }
+                options={countryList}
                 className={'gender'}
                 name="country"
                 placeholder="Select"
@@ -121,24 +144,45 @@ const Demographics = () => {
                   </div>
                 </label>
               </>
+              {patientContext.validator.current.message(
+                'country',
+                patientContext.patientDemographics.country.value,
+                'required',
+              )}
             </div>
             <div className="col position-relative">
               <FormInput
                 type="text"
-                value={data.religion ?? ''}
+                value={patientContext.patientDemographics.religion ?? ''}
                 name="religion"
-                onChange={(e) => handleChange(e)}
-                className="input-style"
+                onChange={(e) =>
+                  patientContext.handleInput('patientDemographics', e)
+                }
+                className={`input-style ${
+                  patientContext.patientDemographics.religion &&
+                  'input-style-valid'
+                }`}
                 label="Religion "
                 noLabel={false}
                 id="religion"
+                error={patientContext.validator.current.message(
+                  'religion',
+                  patientContext.patientDemographics.religion,
+                  'required',
+                )}
               />
             </div>
             <div className="col position-relative">
               <Select
-                value={data.maritalStatus}
-                onChange={(e) => handleSelect(e, 'maritalStatus')}
-                options={options}
+                value={patientContext.patientDemographics.maritalStatus}
+                onChange={(e) =>
+                  patientContext.handleDropDown(
+                    'patientDemographics',
+                    'maritalStatus',
+                    e,
+                  )
+                }
+                options={martialStatus}
                 className={'gender'}
                 name="maritalStatus"
                 placeholder="Select"
@@ -152,15 +196,26 @@ const Demographics = () => {
                   </div>
                 </label>
               </>
+              {patientContext.validator.current.message(
+                'maritalStatus',
+                patientContext.patientDemographics.maritalStatus.value,
+                'required',
+              )}
             </div>
           </div>
 
           <div className="row custom-top-margin">
             <div className="col-md-4 position-relative">
               <Select
-                value={data.language}
-                onChange={(e) => handleSelect(e, 'language')}
-                options={options}
+                value={patientContext.patientDemographics.language}
+                onChange={(e) =>
+                  patientContext.handleDropDown(
+                    'patientDemographics',
+                    'language',
+                    e,
+                  )
+                }
+                options={languageList}
                 className={'gender'}
                 name="language"
                 placeholder="Select"
@@ -174,12 +229,23 @@ const Demographics = () => {
                   </div>
                 </label>
               </>
+              {patientContext.validator.current.message(
+                'language',
+                patientContext.patientDemographics.language.value,
+                'required',
+              )}
             </div>
             <div className="col-md-4 position-relative">
               <Select
-                value={data.interpreter}
-                onChange={(e) => handleSelect(e, 'interpreter')}
-                options={options}
+                value={patientContext.patientDemographics.interpreter}
+                onChange={(e) =>
+                  patientContext.handleDropDown(
+                    'patientDemographics',
+                    'interpreter',
+                    e,
+                  )
+                }
+                options={yesOrNo}
                 className={'gender'}
                 name="interpreter"
                 placeholder="Select"
@@ -193,21 +259,34 @@ const Demographics = () => {
                   </div>
                 </label>
               </>
+              {patientContext.validator.current.message(
+                'interpreter',
+                patientContext.patientDemographics.interpreter.value,
+                'required',
+              )}
             </div>
           </div>
           <div className="row custom-top-margin">
             <div className="col position-relative">
               <TextArea
                 type="text"
-                value={data.socialHistory ?? ''}
+                value={patientContext.patientDemographics.socialHistory ?? ''}
                 name="socialHistory"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) =>
+                  patientContext.handleInput('patientDemographics', e)
+                }
                 className={`large-input-style no-scroll ${
-                  data.socialHistory && 'large-input-style-valid no-scroll'
+                  patientContext.patientDemographics.socialHistory &&
+                  'large-input-style-valid no-scroll'
                 }`}
                 label="Social History "
                 noLabel={false}
                 id="socialHistory"
+                error={patientContext.validator.current.message(
+                  'socialHistory',
+                  patientContext.patientDemographics.socialHistory,
+                  'required',
+                )}
               />
             </div>
           </div>
@@ -216,15 +295,23 @@ const Demographics = () => {
             <div className="col position-relative">
               <TextArea
                 type="text"
-                value={data.familyHistory ?? ''}
+                value={patientContext.patientDemographics.familyHistory ?? ''}
                 name="familyHistory"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) =>
+                  patientContext.handleInput('patientDemographics', e)
+                }
                 className={`large-input-style no-scroll ${
-                  data.familyHistory && 'large-input-style-valid no-scroll'
+                  patientContext.patientDemographics.familyHistory &&
+                  'large-input-style-valid no-scroll'
                 }`}
                 label="Family History "
                 noLabel={false}
                 id="familyHistory"
+                error={patientContext.validator.current.message(
+                  'familyHistory',
+                  patientContext.patientDemographics.familyHistory,
+                  'required',
+                )}
               />
             </div>
           </div>

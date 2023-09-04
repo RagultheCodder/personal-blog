@@ -11,9 +11,9 @@ body {
   padding: 6px 12px;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: $pure-white;
   background-color: $primary-color;
-  border: #dcdcdc;
+  border: $pearl-white;
 }
 
 .create-button {
@@ -22,8 +22,8 @@ body {
   justify-content: center;
   align-items: center;
   background-color: $primary-color;
-  color: #fff;
-  border: #6c6c6c;
+  color: $pure-white;
+  border: $button-border;
 }
 
 .close-icon {
@@ -32,7 +32,7 @@ body {
 }
 
 .backgroundStyles {
-  background-color: #eee;
+  background-color: $light-grey;
   z-index: 9999;
 }
 
@@ -46,11 +46,11 @@ body {
   font-size: 14px;
   padding: 5px;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: $pure-white;
 
   .tooltip-inner {
-    background-color: #cbcbcb;
-    color: #000;
+    background-color: $shaded-white;
+    color: $pure-black;
   }
 }
 
@@ -60,7 +60,7 @@ body {
 }
 
 .home-text {
-  color: var(--dark-blue, #339);
+  color: var(--dark-blue, $primary-color);
   text-align: center;
   font-family: Open Sans;
   font-size: 24px;
@@ -75,7 +75,7 @@ body {
   width: 120px;
   height: 40px;
   background-color: $secondary-color;
-  color: #ffffff;
+  color: $pure-white;
   border-radius: 8px;
   border: none;
   font-weight: 600;
@@ -83,7 +83,7 @@ body {
 
 .secondary-button {
   border-radius: 8px;
-  border: 1px solid #06c;
+  border: 1px solid $secondary-color;
   color: $secondary-color;
   background-color: white;
   font-weight: 600;
@@ -93,4 +93,37 @@ body {
 
 .custom-top-margin {
   margin-top: 34px !important;
+}
+
+.btn {
+  &:hover {
+    background-color: $pure-white !important;
+    color: $secondary-color !important;
+  }
+}
+
+input[type='file']::-webkit-file-upload-button {
+  display: none;
+}
+
+.file-input-transparent {
+  color: transparent;
+}
+
+#file-input-label {
+  position: absolute;
+  font-size: 12px;
+  left: 15px;
+  top: 10px;
+  color: #6c6c6c;
+}
+
+.disabled-button {
+  width: 120px;
+  height: 40px;
+  background-color: $disabled-button-color;
+  color: $pure-white;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
 }

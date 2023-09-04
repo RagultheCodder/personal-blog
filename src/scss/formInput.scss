@@ -1,10 +1,10 @@
 .input-style {
   height: 38px;
-  width: 352px;
-  border: 1px solid #0066cc;
+  width: 365px;
+  border: 1px solid $secondary-color;
   border-radius: 8px;
   padding: 15px;
-  background-color: #fff;
+  background-color: $pure-white;
   transition: outline-color;
   outline: none;
   resize: none;
@@ -16,7 +16,7 @@
   top: 10px;
   left: 25px;
   pointer-events: none;
-  color: #6c6c6c;
+  color: $button-border;
   font-family: Open Sans;
   font-size: 12px;
   font-style: normal;
@@ -32,11 +32,11 @@
 
 .input-style:focus + .label {
   transition: all 0.15s ease-out;
-  color: #0066cc;
+  color: $secondary-color;
 }
 
 .input-style:focus + .label .icon-style {
-  color: red;
+  color: $pure-red;
 }
 
 .input-style:focus + .label,
@@ -46,32 +46,31 @@
   background-color: white;
   padding-left: 4px;
   padding-right: 4px;
-  color: #0066cc;
+  color: $secondary-color;
   margin-top: 8px;
   .icon-style {
-    color: red;
+    color: $pure-red;
   }
 }
 
 .input-group-textarea {
-  border: 1px solid #0066cc;
+  border: 1px solid $secondary-color;
   border-radius: 8px;
   padding: 15px;
-  background-color: #fff;
+  background-color: $pure-white;
   transition: outline-color;
   outline: none;
   resize: none;
   overflow: hidden;
   height: 60px;
-  width: 310px;
+  width: 365px;
 }
 
 .input-group-label {
-  top: 2px;
   left: 15px;
   position: absolute;
   translate: 10px 10px;
-  color: #6c6c6c;
+  color: $button-border;
   font-family: Open Sans;
   font-size: 12px;
   font-style: normal;
@@ -90,9 +89,58 @@
   translate: 0px -14px;
   font-size: 14px;
   scale: 0.8;
-  background-color: #fff;
-  color: #0066cc;
+  background-color: $pure-white;
+  color: $secondary-color;
   .icon-style {
-    color: red;
+    color: $pure-red;
+  }
+}
+
+.fixed-file {
+  padding-inline: 5px;
+  top: 1px;
+  left: 0;
+  position: absolute;
+  translate: 0px -14px;
+  font-size: 14px;
+  scale: 0.8;
+  background-color: $pure-white;
+  color: $secondary-color;
+  .icon-style {
+    color: $pure-red;
+  }
+}
+.custom-phone-input {
+  .react-tel-input {
+    font-family: $open-sans;
+    .special-label {
+      top: 0px;
+      font-size: 14px;
+      scale: 0.8;
+      translate: 0px -14px;
+      color: $secondary-color;
+      z-index: 0;
+
+      &:after {
+        content: ' *';
+        color: $pure-red;
+      }
+    }
+    .form-control {
+      height: 38px;
+      width: 352px;
+      border: 1px solid $secondary-color;
+      border-radius: 8px;
+      background-color: $pure-white;
+      transition: outline-color;
+      outline: none;
+      resize: none;
+      overflow: hidden;
+      font-size: 12px;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
-import PatientMedicalSummary from '../../components/MedicalSummary';
-import SurgicalSummary from '../../components/SurgicalSummary';
+import PatientMedicalSummary from '../../components/patient/MedicalSummary';
+import SurgicalSummary from '../../components/patient/SurgicalSummary';
 
 const PatientSummary = () => {
   return (

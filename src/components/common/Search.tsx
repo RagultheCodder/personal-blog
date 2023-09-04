@@ -1,5 +1,4 @@
-import { ReactComponent as SearchIcon } from '../../assets/search.svg';
-import '../../scss/search.scss';
+import { SearchIcon } from '../../assets/svg';
 
 const Search = (props: {
   filtering: string;

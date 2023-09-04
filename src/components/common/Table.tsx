@@ -9,18 +9,19 @@ import {
   ColumnDef,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-import sortDown from '../assets/sortDown.png';
-import sortUp from '../assets/sortUp.png';
-import sortingIcon from '../assets/sorting.png';
-import CustomPagination from './common/CustomPagination';
-import '../scss/table.scss';
-import { StudentTable } from '../interface/patientCareDetails.interface';
-import Search from './common/Search';
-import CustomSelect from './common/CustomeSelect';
+import sortDown from '../../assets/sortDown.png';
+import sortUp from '../../assets/sortUp.png';
+import sortingIcon from '../../assets/sorting.png';
+import CustomPagination from './CustomPagination';
+import '../../scss/table.scss';
+import { StudentTable } from '../../interface/patientCareDetails.interface';
+import Search from './Search';
+import CustomSelect from './CustomSelect';
 
 const Table = (props: {
   columns: ColumnDef<StudentTable>[];
   data: StudentTable[];
+  title: string;
   classnames: string;
 }) => {
   const { columns, data, classnames } = props;
@@ -47,13 +48,14 @@ const Table = (props: {
     },
   });
 
-  const handlePagenation = (e: { selected: number }) => {
+  const handlePagination = (e: { selected: number }) => {
     table.setPageIndex(e.selected);
   };
 
   return (
-    <div className="mt-4 table-wrapper">
+    <div className="mt-4 table-wrapper container-fluid">
       <div className={`${classnames}`}>
+        <p className="title">{props.title}</p>
         <div className="row mx-0 p-3 table-header">
           <div className="col-sm-6">
             <CustomSelect
@@ -78,12 +80,13 @@ const Table = (props: {
                       key={header.id}
                       onClick={header.column.getToggleSortingHandler()}
                       className="custom-table-head"
+                      style={{ width: '300px' }}
                     >
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
-                      {!header.column.columnDef.sortUndefined === false &&
+                      {header.column.columnDef.sortUndefined &&
                         header.column.getIsSorted() === false &&
                         flexRender(
                           <img
@@ -130,7 +133,7 @@ const Table = (props: {
         {table.getPageCount() > 1 && (
           <CustomPagination
             pageCount={table.getPageCount()}
-            handlePagenation={handlePagenation}
+            handlePagination={handlePagination}
           />
         )}
         <p className="text-center mt-3">

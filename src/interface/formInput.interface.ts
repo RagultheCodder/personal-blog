@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 
 export interface FormInputProps {
   id?: string;
@@ -7,7 +7,7 @@ export interface FormInputProps {
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
-  value: string | number | readonly string[] | undefined;
+  value?: string | number | readonly string[] | undefined;
   info?: string;
   error?: string;
   readOnly?: boolean;

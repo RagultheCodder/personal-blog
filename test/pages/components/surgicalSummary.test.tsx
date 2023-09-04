@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import SurgicalSummary from '../../../src/components/SurgicalSummary';
+import SurgicalSummary from '../../../src/components/patient/SurgicalSummary';
 
 describe('SurgicalSummary', () => {
   test('it renders Surgical Summary component', async () => {

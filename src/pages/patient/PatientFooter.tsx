@@ -1,24 +1,27 @@
-import { PatientCareDetails } from '../../interface/patientCareDetails.interface';
+import { AfterArrow, BeforeArrow } from '../../assets/svg';
 import '../../scss/app.scss';
-import { ReactComponent as BackArrow } from '../../assets/beforearrow.svg';
-import { ReactComponent as FrontArrow } from '../../assets/afterarrow.svg';
+import { useContext } from 'react';
+import { PatientContext } from '../../context/PatientContext';
+import { showDischarge } from '../../config/constant';
 
-const PatientFooter = ({
-  handleNext,
-  selectedComponent,
-  isPatientDetails,
-}: PatientCareDetails) => {
+const PatientFooter = () => {
+  const patientContext = useContext(PatientContext);
   return (
     <div className="d-flex align-items-center justify-content-between p-4 top-border">
       <>
-        {isPatientDetails ? (
+        {patientContext.selectedComponent === 2 ? (
           <button className="secondary-button">Cancel</button>
         ) : (
           <div>
             {' '}
-            <button className="secondary-button">
+            <button
+              className="secondary-button"
+              onClick={() =>
+                patientContext.handleBack(patientContext.selectedComponent)
+              }
+            >
               <div className="d-flex align-items-center justify-content-around">
-                <BackArrow />
+                <BeforeArrow />
                 Back
               </div>
             </button>{' '}
@@ -27,25 +30,52 @@ const PatientFooter = ({
         )}
       </>
       <>
-        {isPatientDetails ? (
+        {patientContext.selectedComponent === 2 ? (
           <button
             className="primary-button float-end"
-            onClick={() => handleNext(selectedComponent + 1)}
+            onClick={(e) =>
+              patientContext.handleSave(patientContext.selectedComponent, e)
+            }
           >
-            Create
+            {patientContext.mode === 'create' ? 'Create' : 'Save'}
+          </button>
+        ) : patientContext.selectedComponent === 13 ? (
+          <button
+            className="primary-button float-end"
+            onClick={(e) =>
+              patientContext.handleSave(patientContext.selectedComponent, e)
+            }
+          >
+            Discharge
           </button>
         ) : (
           <>
             {' '}
             <div className="float-end">
-              <button className="primary-button me-4">Save</button>{' '}
               <button
-                className="primary-button"
-                onClick={() => handleNext(selectedComponent + 1)}
+                className="primary-button me-4"
+                onClick={(e) =>
+                  patientContext.handleSave(patientContext.selectedComponent, e)
+                }
+              >
+                Save
+              </button>{' '}
+              <button
+                className={`${
+                  patientContext.showNext ? 'primary-button' : 'disabled-button'
+                }`}
+                disabled={!patientContext.showNext}
+                onClick={() =>
+                  patientContext.forwardComponent(
+                    patientContext.selectedComponent,
+                  )
+                }
               >
                 <div className="d-flex align-items-center justify-content-around">
-                  Next
-                  <FrontArrow />
+                  {showDischarge.includes(patientContext.selectedComponent)
+                    ? 'Discharge'
+                    : 'Next'}
+                  <AfterArrow />
                 </div>
               </button>
             </div>

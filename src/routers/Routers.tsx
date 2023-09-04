@@ -3,19 +3,23 @@ import ErrorPage from '../error-page';
 import HomePage from '../pages/home/HomePage';
 import PatientIndex from '../pages/patient/PatientIndex';
 import Header from '../components/Header';
-import Students from '../pages/patient/Students';
+import PatientList from '../pages/patientList/PatientList';
+import { PatientContextProvider } from '../context/PatientContext';
 
 const Routers = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<HomePage />} />
-          <Route path="/patient-onboard/:id?" element={<PatientIndex />} />
-          <Route path="/students" element={<Students />} />
-        </Route>
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <PatientContextProvider>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route index element={<HomePage />} />
+            <Route path="/patient/create" element={<PatientIndex />} />
+            <Route path="/patient/edit/:id" element={<PatientIndex />} />
+            <Route path="/patients" element={<PatientList />} />
+          </Route>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </PatientContextProvider>
     </BrowserRouter>
   );
 };

@@ -1,7 +1,7 @@
 .patient-onboard-form {
   .text-box {
     width: 60%;
-    background-color: #eee;
+    background-color: $light-grey;
   }
 }
 
@@ -13,7 +13,7 @@
 
 .gender {
   height: 38px;
-  width: 310px;
+  width: 365px;
   font-size: 12px;
 
   > div:first-child {
@@ -23,7 +23,7 @@
   }
   .css-13cymwt-control {
     outline: none !important;
-    border: 1px solid #0066cc !important;
+    border: 1px solid $secondary-color !important;
     border-radius: 8px;
   }
 }

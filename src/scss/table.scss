@@ -29,8 +29,18 @@
   border-radius: 15px;
 }
 
+@mixin tableTitle() {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: normal;
+}
+
 .table-wrapper {
-  .active-student {
+  .active-patients {
+    .title {
+      @include tableTitle();
+      color: $secondary-color;
+    }
     .table-header {
       background-color: $table-active-student;
     }
@@ -79,7 +89,11 @@
     }
   }
 
-  .discharge-student {
+  .discharge-patients {
+    .title {
+      @include tableTitle();
+      color: $primary-color;
+    }
     .table-header {
       background-color: $table-discharge-student;
     }

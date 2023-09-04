@@ -1,11 +1,10 @@
 import ReactPaginate from 'react-paginate';
 import '../../scss/customPagination.scss';
-import { ReactComponent as Next } from '../../assets/next.svg';
-import { ReactComponent as Prev } from '../../assets/prev.svg';
+import { Next, Prev } from '../../assets/svg';
 
 const CustomPagination = (props: {
   pageCount: number;
-  handlePagenation: (selectedItem: { selected: number }) => void;
+  handlePagination: (selectedItem: { selected: number }) => void;
 }) => {
   return (
     <div className="pagination-wrapper">
@@ -13,7 +12,7 @@ const CustomPagination = (props: {
         breakLabel="..."
         pageCount={props.pageCount}
         pageRangeDisplayed={4}
-        onPageChange={props.handlePagenation}
+        onPageChange={props.handlePagination}
         marginPagesDisplayed={1}
         previousLabel={<Prev />}
         nextLabel={<Next />}

@@ -1,22 +1,42 @@
-import Table from '../../components/Table';
-import mData from '../../../MOCK_DATA.json';
+import Table from '../../components/common/Table';
 import { ColumnDef } from '@tanstack/react-table';
 import moment from 'moment';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
+  StudentData,
   StudentTable,
-  updateByWithDate,
 } from '../../interface/patientCareDetails.interface';
 import CustomTableButton from '../../components/common/EditButton';
 import { useNavigate } from 'react-router-dom';
+import { getAllPatientByUserCourseId } from '../../service/PatientService';
 
-const Students = () => {
-  const data = useMemo(() => mData, []);
+const DischargePatients = () => {
+  const [dischargePatients, setDischargePatients] = useState([]);
+
+  useMemo(() => {
+    getAllPatientByUserCourseId(1)
+      .then((resp) =>
+        setDischargePatients(
+          resp.data
+            .filter((x: StudentData) => x?.admissionPatient?.admissionDischarge)
+            .map((student: StudentData) => ({
+              id: student.id,
+              urn: student.URN,
+              givenName: student.given_name,
+              familyName: student.family_name,
+              sex: student.gender,
+              admittedDate: student.createdAt,
+              updateBy: student.createdAt,
+            })),
+        ),
+      )
+      .catch((err) => console.log(err));
+  }, []);
 
   const navigate = useNavigate();
 
-  const handleNavigate = (studentId: string) => {
-    navigate(`/patient-onboard/${studentId}`);
+  const handleNavigate = (studentId: number) => {
+    navigate(`/patient/edit/${studentId}`);
   };
 
   const columns: ColumnDef<StudentTable>[] = [
@@ -28,7 +48,7 @@ const Students = () => {
       cell: (info) => (
         <span
           className="cursor-pointer"
-          onClick={() => handleNavigate(info.getValue() as string)}
+          onClick={() => handleNavigate(info.row.original.id)}
         >
           <u>{info.getValue() as string}</u>
         </span>
@@ -64,9 +84,7 @@ const Students = () => {
       sortUndefined: false,
       cell: (info) => (
         <span>
-          {moment(
-            new Date((info.getValue() as updateByWithDate).date as string),
-          ).format('DD-MMM-YYYY LT')}
+          {moment(new Date(info.getValue() as string)).format('DD-MMM-YYYY LT')}
         </span>
       ),
     },
@@ -74,15 +92,22 @@ const Students = () => {
       header: 'Action',
       cell: () => (
         <div className="cursor-pointer d-flex align-items-center">
-          <CustomTableButton name="Edit" />{' '}
-          <CustomTableButton name="Discharge" />
+          <CustomTableButton name="View" />{' '}
+          <CustomTableButton name="Add New Admission" />
         </div>
       ),
       enableSorting: false,
       sortUndefined: false,
     },
   ];
-  return <Table data={data} columns={columns} classnames="active-student" />;
+  return (
+    <Table
+      data={dischargePatients}
+      columns={columns}
+      title="Discharge Patients"
+      classnames="discharge-patients"
+    />
+  );
 };
 
-export default Students;
+export default DischargePatients;

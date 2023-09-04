@@ -1,4 +1,4 @@
-import { ReactComponent as Home } from '../../assets/homepage.svg';
+import { HomeImage } from '../../assets/svg';
 
 const HomePage = () => {
   return (
@@ -8,7 +8,7 @@ const HomePage = () => {
           Get started today and experience the convenience of Academic
           Electronic Health Records !
         </p>
-        <Home className="d-block mx-auto" />
+        <HomeImage className="d-block mx-auto" />
       </div>
     </>
   );

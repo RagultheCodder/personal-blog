@@ -1,27 +1,27 @@
 .table-header-style {
-  background-color: '#0066CC0D';
-  color: '#333399';
+  background-color: $shaded-blue;
+  color: $primary-color;
 }
 
 .mandatory-style {
-  color: #e0004d;
+  color: $pinkish-red;
 }
 
 .table-border-style {
-  border-top: 1px solid rgba(0, 102, 204, 0.25);
-  border-bottom: 1px solid rgba(0, 102, 204, 0.25);
-  background-color: #0066CC0D;
+  border-top: 1px solid $blue-with-op25;
+  border-bottom: 1px solid $blue-with-op25;
+  background-color: $shaded-blue;
 }
 
 .line-style {
-  border-bottom: 1px solid rgba(227, 168, 0, 0.5);
+  border-bottom: 1px solid $border-color-opacity;
   padding-bottom: 10px;
 }
 
 .first-box-style {
   height: 38px;
   width: 270px;
-  border: 1px solid #0066cc;
+  border: 1px solid $secondary-color;
   border-radius: 8px;
   box-sizing: border-box;
   padding: 10px;
@@ -32,7 +32,7 @@
 .second-box-style {
   height: 38px;
   width: 390px;
-  border: 1px solid #0066cc;
+  border: 1px solid $secondary-color;
   border-radius: 8px;
   box-sizing: border-box;
   padding: 15px;
@@ -41,12 +41,12 @@
 }
 
 .font-style {
-  color: #333399;
+  color: $primary-color;
   font-size: 12px;
 }
 
 .toggle-text-style {
-  color: #363636;
+  color: $table-font-color;
   font-family: Open Sans;
   font-size: 14px;
   font-style: normal;
@@ -61,7 +61,7 @@
 
 .select-style {
   height: 38px;
-  width: 280px;
+  width: 270px;
   font-size: 12px;
 
   > div:first-child {
@@ -71,15 +71,15 @@
   }
   .css-13cymwt-control {
     outline: none !important;
-    border: 1px solid #0066cc !important;
+    border: 1px solid $secondary-color !important;
     border-radius: 8px;
   }
 }
 
 .large-input-style {
   height: 80px;
-  width: 88.5%;
-  border: 1px solid #0066cc;
+  width: 92.5%;
+  border: 1px solid $secondary-color;
   border-radius: 8px;
   box-sizing: border-box;
   padding: 15px;
@@ -99,9 +99,9 @@
   translate: 0px -14px;
   font-size: 14px;
   scale: 0.8;
-  background-color: #fff;
-  color: #0066cc;
+  background-color: $pure-white;
+  color: $secondary-color;
   .icon-style {
-    color: red;
+    color: $pure-red;
   }
 }
