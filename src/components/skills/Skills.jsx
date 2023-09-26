@@ -1,26 +1,25 @@
-import './Skills.scss'
-import content from '../../content';
-import React from 'react';
+import "./Skills.scss";
+import content from "../../content";
+import React, { Fragment } from "react";
 const Skills = () => {
   return (
     <div className="skill-container">
       <div className="container p-5 mx-auto">
-        <p className="heading">Skills</p>
-        <div className='ms-5'>
-          {
-            content.skills.map(ele => (
-              <React.Fragment key={ele.id}>
-                <p className='mb-1 mt-4 ms-1 h5'>{ele.skill}</p>
-                <div className="progress">
-                  <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={ele.range} aria-valuemin="0" aria-valuemax="100" style={{ width: `${ele.range}%` }}>{ele.range}</div>
+        <h1 className="heading text-center">Skills</h1>
+        <div className="row mt-3 gy-3">
+          {content.skills.map((ele) => (
+            <Fragment key={ele.id}>
+              <div className="col-xl-4 position-relative">
+                <div className="border rounded p-5 glassEffect">
+                  <h3 className="text-center mt-3">{ele.skill}</h3>
                 </div>
-              </React.Fragment>
-            ))
-          }
+              </div>
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Skills;
