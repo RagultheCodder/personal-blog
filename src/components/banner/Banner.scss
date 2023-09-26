@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+NP+Hmong&display=swap');
+
+
+.text-wrapper {
+    .name {
+        font-size: 50px;
+        color: #ffbc01;
+        font-family: 'Noto Serif NP Hmong', serif;
+    }
+
+    .role {
+        font-size: 40px;
+        color: white;
+        font-family: 'Noto Serif NP Hmong', serif;
+    }
+
+    .social-icon {
+        img {
+            width: 60px;
+            height: 60px;
+            padding: 8px;
+            cursor: pointer;
+        }
+    }
+}
