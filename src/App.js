@@ -1,5 +1,6 @@
 import "./App.css";
 import Banner from "./components/banner/Banner";
+import Experience from "./components/experience/Experience.jsx";
 import Skills from "./components/skills/Skills.jsx";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <Banner />
       <Skills />
+      <Experience />
     </>
   );
 }
